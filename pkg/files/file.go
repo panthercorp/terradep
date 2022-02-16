@@ -5,6 +5,7 @@ import (
 	"io/fs"
 	"io/ioutil"
 	"os"
+	"time"
 )
 
 func ReadFile(filePath string) ([]byte, error) {
@@ -34,7 +35,7 @@ func CreateFileBackup(filePath string, permission int) error {
 		if err != nil {
 			return err
 		}
-		return WriteFile(filePath+".bak", data, permission)
+		return WriteFile(filePath+time.Now().String()+".bak", data, permission)
 	} else {
 		return fmt.Errorf("file %v does not exist", filePath)
 	}
