@@ -35,7 +35,7 @@ func CreateFileBackup(filePath string, permission int) error {
 		if err != nil {
 			return err
 		}
-		return WriteFile(filePath+time.Now().String()+".bak", data, permission)
+		return WriteFile(fmt.Sprintf("%v%v", filePath, time.Now().Unix())+".bak", data, permission)
 	} else {
 		return fmt.Errorf("file %v does not exist", filePath)
 	}
