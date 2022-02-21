@@ -16,6 +16,8 @@ repositories:
     username: username
     password: yourPassword
     headers:
-      User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36
-      Content-Type: application/json
+    -  key: User-Agent
+       value : Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36
+    -  key: Content-Type
+       value: application/json
     alias: http-yourrepository
