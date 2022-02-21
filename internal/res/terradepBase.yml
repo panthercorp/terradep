@@ -4,10 +4,12 @@ repositories:
     username: username
     password: yourPassword
     sshPrivateKeysPath: ~/.ssh/id_rsa
+    token: abcdef1234567890
     alias: git-github
   - url: https://gitlab.com
     username: username
     password: yourPassword
+    token: abcdef1234567890
     sshPrivateKeysPath: ~/.ssh/id_rsa
     alias: git-gitlab
   http:
