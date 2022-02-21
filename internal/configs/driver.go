@@ -12,7 +12,7 @@ func InitializeTerradepConfig(path string, force bool) error {
 	terradepBase := filepath.Join("internal", "res", "terradepBase.yml")
 	destinationPath := filepath.Join(path, ".terradep", "terradep.yml")
 	if files.CheckFileExistence(destinationPath) && !force {
-		return fmt.Errorf("terradep config already exists at %v", destinationPath)
+		return fmt.Errorf("terradep config already exists at %v. use --force to override", destinationPath)
 	} else if files.CheckFileExistence(destinationPath) && force {
 		if err := files.CreateFileBackup(destinationPath, 0644); err != nil {
 			return err
