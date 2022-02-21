@@ -235,3 +235,33 @@ func TestDeleteExistingFile(t *testing.T) {
 	}
 
 }
+
+func TestGetUserHomeDir(t *testing.T) {
+	userDir, err := os.UserHomeDir()
+	if err != nil {
+		t.Error("failed to initialize home dir test")
+	}
+	tests := []struct {
+		name    string
+		want    string
+		wantErr bool
+	}{
+		{
+			name:    "get user home dir test",
+			want:    userDir,
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := GetUserHomeDir()
+			if (err != nil) != tt.wantErr {
+				t.Errorf("GetUserHomeDir() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if got != tt.want {
+				t.Errorf("GetUserHomeDir() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
