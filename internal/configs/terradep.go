@@ -1,6 +1,10 @@
 package configs
 
-import "fmt"
+import (
+	"fmt"
+
+	"gopkg.in/yaml.v3"
+)
 
 type Terradep struct {
 	Repositories Repositories `yaml:"repositories"`
@@ -28,6 +32,14 @@ type HTTP struct {
 type Repositories struct {
 	Git  []Git  `yaml:"git"`
 	HTTP []HTTP `yaml:"http"`
+}
+
+func UnmarshallTerradep(file []byte) (Terradep, error) {
+	var data Terradep
+	if err := yaml.Unmarshal(file, &data); err != nil {
+		return Terradep{}, err
+	}
+	return data, nil
 }
 
 func (t *Terradep) GetGitRepository(alias string) (Git, error) {
