@@ -48,3 +48,11 @@ func DeleteExistingFile(filePath string) error {
 		return fmt.Errorf("file %v does not exist", filePath)
 	}
 }
+
+func GetUserHomeDir() (string, error) {
+	dir, err := os.UserHomeDir()
+	if err != nil {
+		return "", fmt.Errorf("failed to get user home dir: %v", err)
+	}
+	return dir, nil
+}
