@@ -9,6 +9,7 @@ type Git struct {
 	URL                string `yaml:"url"`
 	Username           string `yaml:"username"`
 	Password           string `yaml:"password"`
+	Token              string `yaml:"token"`
 	SSHPrivateKeysPath string `yaml:"sshPrivateKeysPath"`
 	Alias              string `yaml:"alias"`
 }
