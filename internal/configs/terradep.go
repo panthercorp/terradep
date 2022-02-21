@@ -1,5 +1,7 @@
 package configs
 
+import "fmt"
+
 type Terradep struct {
 	Repositories Repositories `yaml:"repositories"`
 }
@@ -25,4 +27,22 @@ type HTTP struct {
 type Repositories struct {
 	Git  []Git  `yaml:"git"`
 	HTTP []HTTP `yaml:"http"`
+}
+
+func (t *Terradep) GetGitRepository(alias string) (Git, error) {
+	for _, r := range t.Repositories.Git {
+		if r.Alias == alias {
+			return r, nil
+		}
+	}
+	return Git{}, fmt.Errorf("repository not found")
+}
+
+func (t *Terradep) GetHTTPRepository(alias string) (HTTP, error) {
+	for _, r := range t.Repositories.HTTP {
+		if r.Alias == alias {
+			return r, nil
+		}
+	}
+	return HTTP{}, fmt.Errorf("repository not found")
 }
