@@ -33,7 +33,7 @@ func InitializeDcfConfig(path string, force bool) error {
 	dcfBase := filepath.Join("internal", "res", "dcfBase.yml")
 	destinationPath := filepath.Join(path, "dcf.yml")
 	if files.CheckFileExistence(destinationPath) && !force {
-		return fmt.Errorf("dcf config already exists at %v. use force to override", destinationPath)
+		return fmt.Errorf("dcf config already exists at %v. use --force to override", destinationPath)
 	} else if files.CheckFileExistence(destinationPath) && force {
 		if err := files.CreateFileBackup(destinationPath, 0644); err != nil {
 			return err
