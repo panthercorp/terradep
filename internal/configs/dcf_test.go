@@ -1,11 +1,23 @@
 package configs
 
 import (
+	"io/ioutil"
+	"path/filepath"
 	"reflect"
 	"testing"
+
+	"gopkg.in/yaml.v3"
 )
 
 func TestUnmarshallDcf(t *testing.T) {
+	dcfData, err := ioutil.ReadFile(filepath.Join("..", "res", "dcf_test.yml"))
+	if err != nil {
+		t.Errorf("Failed to initialize test data: %s", err)
+	}
+	var dcf Dcf
+	if err = yaml.Unmarshal(dcfData, &dcf); err != nil {
+		t.Errorf("Failed to unmarshal test data: %s", err)
+	}
 	type args struct {
 		file []byte
 	}
@@ -15,7 +27,14 @@ func TestUnmarshallDcf(t *testing.T) {
 		want    Dcf
 		wantErr bool
 	}{
-		// TODO: Add test cases.
+		{
+			name: "UnmarshalDcf",
+			args: args{
+				file: dcfData,
+			},
+			want:    dcf,
+			wantErr: false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
