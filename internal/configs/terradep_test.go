@@ -1,11 +1,23 @@
 package configs
 
 import (
+	"io/ioutil"
+	"path/filepath"
 	"reflect"
 	"testing"
+
+	"gopkg.in/yaml.v3"
 )
 
 func TestUnmarshallTerradep(t *testing.T) {
+	terradepData, err := ioutil.ReadFile(filepath.Join("..", "res", "terradep_test.yml"))
+	if err != nil {
+		t.Errorf("Failed to initialize test data: %s", err)
+	}
+	var terradep Terradep
+	if err = yaml.Unmarshal(terradepData, &terradep); err != nil {
+		t.Errorf("Failed to unmarshal test data: %s", err)
+	}
 	type args struct {
 		file []byte
 	}
@@ -15,7 +27,14 @@ func TestUnmarshallTerradep(t *testing.T) {
 		want    Terradep
 		wantErr bool
 	}{
-		// TODO: Add test cases.
+		{
+			name: "UnmarshalTerradep",
+			args: args{
+				file: terradepData,
+			},
+			want:    terradep,
+			wantErr: false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
