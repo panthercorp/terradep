@@ -8,6 +8,7 @@ import (
 )
 
 // Path should be till folder only, not file
+// TODO fix relative path for copying files
 func InitializeTerradepConfig(path string, force bool) error {
 	terradepBase := filepath.Join("internal", "res", "terradepBase.yml")
 	destinationPath := filepath.Join(path, ".terradep", "terradep.yml")
@@ -29,8 +30,9 @@ func InitializeTerradepConfig(path string, force bool) error {
 }
 
 // Path should be till folder only, not file
+// TODO fix relative path for copying files
 func InitializeDcfConfig(path string, force bool) error {
-	dcfBase := filepath.Join("internal", "res", "dcfBase.yml")
+	dcfBase := filepath.Join("..", "res", "dcfBase.yml")
 	destinationPath := filepath.Join(path, "dcf.yml")
 	if files.CheckFileExistence(destinationPath) && !force {
 		return fmt.Errorf("dcf config already exists at %v. use --force to override", destinationPath)

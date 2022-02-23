@@ -12,7 +12,22 @@ func TestInitializeTerradepConfig(t *testing.T) {
 		args    args
 		wantErr bool
 	}{
-		// TODO: Add test cases.
+		{
+			name: "InitializeTerradepConfig",
+			args: args{
+				path:  "",
+				force: false,
+			},
+			wantErr: false,
+		},
+		{
+			name: "InitializeTerradepConfig",
+			args: args{
+				path:  "",
+				force: false,
+			},
+			wantErr: true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
