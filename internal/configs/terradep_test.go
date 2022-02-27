@@ -1,21 +1,17 @@
 package configs
 
 import (
-	"io/ioutil"
-	"path/filepath"
 	"reflect"
 	"testing"
 
+	"github.com/panthercorp/terradep/internal/statics"
 	"gopkg.in/yaml.v3"
 )
 
 func TestUnmarshallTerradep(t *testing.T) {
-	terradepData, err := ioutil.ReadFile(filepath.Join("..", "res", "terradep_test.yml"))
-	if err != nil {
-		t.Errorf("Failed to initialize test data: %s", err)
-	}
+	terradepData := []byte(statics.TerradepConfig)
 	var terradep Terradep
-	if err = yaml.Unmarshal(terradepData, &terradep); err != nil {
+	if err := yaml.Unmarshal(terradepData, &terradep); err != nil {
 		t.Errorf("Failed to unmarshal test data: %s", err)
 	}
 	type args struct {
