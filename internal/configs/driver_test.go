@@ -1,6 +1,9 @@
 package configs
 
-import "testing"
+import (
+	"os"
+	"testing"
+)
 
 func TestInitializeTerradepConfig(t *testing.T) {
 	type args struct {
@@ -12,23 +15,30 @@ func TestInitializeTerradepConfig(t *testing.T) {
 		args    args
 		wantErr bool
 	}{
-		// TODO fix tests
-		// {
-		// 	name: "InitializeTerradepConfig",
-		// 	args: args{
-		// 		path:  "",
-		// 		force: false,
-		// 	},
-		// 	wantErr: false,
-		// },
-		// {
-		// 	name: "InitializeTerradepConfig",
-		// 	args: args{
-		// 		path:  "",
-		// 		force: false,
-		// 	},
-		// 	wantErr: true,
-		// },
+		{
+			name: "InitializeTerradepConfig",
+			args: args{
+				path:  "",
+				force: false,
+			},
+			wantErr: false,
+		},
+		{
+			name: "InitializeTerradepConfigWithFileAlreadyPresent",
+			args: args{
+				path:  "",
+				force: false,
+			},
+			wantErr: true,
+		},
+		{
+			name: "InitializeTerradepConfigWithFileAlreadyPresentForce",
+			args: args{
+				path:  "",
+				force: true,
+			},
+			wantErr: false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -37,9 +47,14 @@ func TestInitializeTerradepConfig(t *testing.T) {
 			}
 		})
 	}
+	err := os.RemoveAll(".terradep")
+	if err != nil {
+		t.Error("Failed to clean test resources: ", err)
+	}
 }
 
 func TestInitializeDcfConfig(t *testing.T) {
+	os.Mkdir("dcftest", 0755)
 	type args struct {
 		path  string
 		force bool
@@ -49,7 +64,30 @@ func TestInitializeDcfConfig(t *testing.T) {
 		args    args
 		wantErr bool
 	}{
-		// TODO: Add test cases.
+		{
+			name: "InitializeDcfConfig",
+			args: args{
+				path:  "dcftest",
+				force: false,
+			},
+			wantErr: false,
+		},
+		{
+			name: "InitializeDcfConfigWithFileAlreadyPresent",
+			args: args{
+				path:  "dcftest",
+				force: false,
+			},
+			wantErr: true,
+		},
+		{
+			name: "InitializeDcfConfigWithFileAlreadyPresentForce",
+			args: args{
+				path:  "dcftest",
+				force: true,
+			},
+			wantErr: false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -57,5 +95,9 @@ func TestInitializeDcfConfig(t *testing.T) {
 				t.Errorf("InitializeDcfConfig() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
+	}
+	err := os.RemoveAll("dcftest")
+	if err != nil {
+		t.Error("Failed to clean test resources: ", err)
 	}
 }
