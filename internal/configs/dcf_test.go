@@ -1,21 +1,17 @@
 package configs
 
 import (
-	"io/ioutil"
-	"path/filepath"
 	"reflect"
 	"testing"
 
+	"github.com/panthercorp/terradep/internal/statics"
 	"gopkg.in/yaml.v3"
 )
 
 func TestUnmarshallDcf(t *testing.T) {
-	dcfData, err := ioutil.ReadFile(filepath.Join("..", "res", "dcf_test.yml"))
-	if err != nil {
-		t.Errorf("Failed to initialize test data: %s", err)
-	}
+	dcfData := []byte(statics.DcfConfig)
 	var dcf Dcf
-	if err = yaml.Unmarshal(dcfData, &dcf); err != nil {
+	if err := yaml.Unmarshal(dcfData, &dcf); err != nil {
 		t.Errorf("Failed to unmarshal test data: %s", err)
 	}
 	type args struct {
